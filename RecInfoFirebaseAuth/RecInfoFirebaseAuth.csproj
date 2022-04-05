@@ -8,6 +8,20 @@
     <Authors>RecoverInfoTech</Authors>
     <Description>This library can handle firebase Rest Auth Api</Description>
     <Copyright>MIT</Copyright>
+    <RepositoryUrl>https://github.com/gyanjarahatke/RecInfoFirebaseAuth.git</RepositoryUrl>
+    <RepositoryType>github</RepositoryType>
+    <PackageTags>RecoverInfoTech, RecInfo, FireBase, FireBaseAuth</PackageTags>
+    <NeutralLanguage>en</NeutralLanguage>
+    <PackageReleaseNotes>Test version</PackageReleaseNotes>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="RnHandlers\RnCommand\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentlyHttpClient" Version="3.9.1" />
+  </ItemGroup>
 
 </Project>

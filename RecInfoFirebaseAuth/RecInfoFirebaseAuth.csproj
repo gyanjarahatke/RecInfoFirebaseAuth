@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PackageId>RecoverInfoTech.$(AssemblyName)</PackageId>
+    <Authors>RecoverInfoTech</Authors>
+    <Description>This library can handle firebase Rest Auth Api</Description>
+    <Copyright>MIT</Copyright>
+  </PropertyGroup>
+
+</Project>

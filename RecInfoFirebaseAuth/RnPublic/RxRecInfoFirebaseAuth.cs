@@ -1,26 +1,25 @@
 ﻿using MediatR;
-using RecInfoFirebaseAuth.RnHandlers.RnQuery.RnRequest;
-using RecInfoFirebaseAuth.RnHandlers.RnQuery.RnResponse;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using RecInfoFirebaseAuth.RnHandlers.RnRequest;
+using RecInfoFirebaseAuth.RnHandlers.RnResponse;
 
-namespace RecInfoFirebaseAuth.RnPublic
+namespace RecInfoFirebaseAuth.RnPublic;
+
+public class RxRecInfoFirebaseAuth : IRxRecInfoFirebaseAuth
 {
-    public class RxRecInfoFirebaseAuth : IRxRecInfoFirebaseAuth
+    private readonly IMediator _iMediator;
+
+    public RxRecInfoFirebaseAuth(IMediator iMediator)
     {
-        private readonly IMediator _iMediator;
+        _iMediator = iMediator;
+    }
 
-        public RxRecInfoFirebaseAuth(IMediator iMediator)
-        {
-            _iMediator = iMediator;
-        }
+    public async Task<RxRecInfoFirebaseAuthEmailSignUpResponse> GoForEmailSignUpAsync(string email, string password, bool returnSecureToken)
+    {
+        return await _iMediator.Send(new RxRecInfoFirebaseAuthEmailSignUpPaylode(email,password,returnSecureToken));
+    }
 
-        public async Task<RxRecInfoFirebaseAuthEmailLogInResponse> GoForEmailLogInAsync(RxRecInfoFirebaseAuthEmailLogInPaylode model)
-        {
-            return await _iMediator.Send(model);
-        }
+    public async Task<RxRecInfoFirebaseAuthEmailLogInResponse> GoForEmailLogInAsync(string email, string password)
+    {
+        return await _iMediator.Send(new RxRecInfoFirebaseAuthEmailLogInPaylode(email,password));
     }
 }

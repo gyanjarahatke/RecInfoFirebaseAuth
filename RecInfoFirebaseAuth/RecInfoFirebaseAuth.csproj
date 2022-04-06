@@ -17,10 +17,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="RnHandlers\RnCommand\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="FluentlyHttpClient" Version="3.9.1" />
     <PackageReference Include="MediatR" Version="10.0.1" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />

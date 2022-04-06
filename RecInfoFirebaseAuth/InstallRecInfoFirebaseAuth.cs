@@ -1,43 +1,36 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using RecInfoFirebaseAuth.RnConfig;
-using RecInfoFirebaseAuth.RnOpration;
-using RecInfoFirebaseAuth.RnPublic;
+﻿using FluentlyHttpClient;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentlyHttpClient;
-using FluentlyHttpClient.Middleware;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using RecInfoFirebaseAuth.RnConfig;
+using RecInfoFirebaseAuth.RnHandlers.RnResponse;
+using RecInfoFirebaseAuth.RnPublic;
 
-namespace RecInfoFirebaseAuth
+namespace RecInfoFirebaseAuth;
+
+public class InstallRecInfoFirebaseAuth
 {
-    public class InstallRecInfoFirebaseAuth
+    public static void Install(IServiceCollection services, string apiKey)
     {
-       
-        public static void Install(IServiceCollection services, string apiKey)
-        {
-            services.AddMediatR(typeof(InstallRecInfoFirebaseAuth));
-            services.AddFluentlyHttpClient();
-            services.AddScoped<RxRecInfoFirebaseAuthUrlConfig>();
-            services.AddScoped(a => new RxRecInfoFirebaseAuthConfig(apiKey));
-            services.AddScoped<IRxRecInfoFirebaseAuth, RxRecInfoFirebaseAuth>();
-        }
+        services.AddMediatR(typeof(InstallRecInfoFirebaseAuth));
+        services.AddFluentlyHttpClient();
+        services.AddScoped<RxRecInfoFirebaseAuthUrlConfig>();
+        services.AddScoped(a => new RxRecInfoFirebaseAuthConfig(apiKey));
+        services.AddScoped<IRxRecInfoFirebaseAuth, RxRecInfoFirebaseAuth>();
+
+        services.AddScoped<RxRecInfoFirebaseAuthEmailLogInResponse>();
+    }
 
 
-  
-        public static void Configure(IApplicationBuilder app)
-        {
-            var fluentHttpClientFactory = app.ApplicationServices.GetService<IFluentHttpClientFactory>();
-            fluentHttpClientFactory?.CreateBuilder(identifier: RxRecInfoFirebaseAuthUrlConfig.HttpPlatformName) // keep a note of the identifier, its needed later
-                .WithBaseUrl(RxRecInfoFirebaseAuthUrlConfig.BaseUrl) // required
-                .WithHeader("user-agent", "slabs-testify")
-                .WithTimeout(5)
-                .Register(); // register client builder to factory
-        }
-        
+    public static void Configure(IApplicationBuilder app)
+    {
+        var fluentHttpClientFactory = app.ApplicationServices.GetService<IFluentHttpClientFactory>();
+        fluentHttpClientFactory
+            ?.CreateBuilder(RxRecInfoFirebaseAuthUrlConfig
+                .HttpPlatformName) // keep a note of the identifier, its needed later
+            .WithBaseUrl(RxRecInfoFirebaseAuthUrlConfig.BaseUrl) // required
+            .WithHeader("user-agent", "slabs-testify")
+            .WithTimeout(5)
+            .Register(); // register client builder to factory
     }
 }

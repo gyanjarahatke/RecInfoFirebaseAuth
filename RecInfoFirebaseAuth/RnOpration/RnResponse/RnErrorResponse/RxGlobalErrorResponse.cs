@@ -1,4 +1,5 @@
 ﻿namespace RecInfoFirebaseAuth.RnOpration.RnResponse.RnErrorResponse;
+
 /*
 {
     "error": {
@@ -16,7 +17,7 @@
 */
 public class RxGlobalErrorResponse
 {
-    public RxGlobalErrorRoot Error {get; set; }
+    public RxGlobalErrorRoot Error { get; set; }
 }
 
 public class RxGlobalErrorRoot
@@ -24,7 +25,7 @@ public class RxGlobalErrorRoot
     public int Code { get; set; }
 
     public string Message { get; set; }
-    
+
     public List<RxGlobalErrorSub> Errors { get; set; }
 }
 

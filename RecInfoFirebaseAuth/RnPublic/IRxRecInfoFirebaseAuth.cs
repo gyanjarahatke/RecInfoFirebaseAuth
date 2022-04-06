@@ -1,10 +1,12 @@
-﻿using RecInfoFirebaseAuth.RnHandlers.RnQuery.RnRequest;
-using RecInfoFirebaseAuth.RnHandlers.RnQuery.RnResponse;
+﻿using RecInfoFirebaseAuth.RnHandlers.RnRequest;
+using RecInfoFirebaseAuth.RnHandlers.RnResponse;
 
-namespace RecInfoFirebaseAuth.RnPublic
+namespace RecInfoFirebaseAuth.RnPublic;
+
+public interface IRxRecInfoFirebaseAuth
 {
-    public interface IRxRecInfoFirebaseAuth
-    {
-        public Task<RxRecInfoFirebaseAuthEmailLogInResponse> GoForEmailLogInAsync(RxRecInfoFirebaseAuthEmailLogInPaylode model);
-    }
+    
+    public Task<RxRecInfoFirebaseAuthEmailSignUpResponse> GoForEmailSignUpAsync(string email, string password, bool returnSecureToken);
+    
+    public Task<RxRecInfoFirebaseAuthEmailLogInResponse> GoForEmailLogInAsync(string email, string password);
 }

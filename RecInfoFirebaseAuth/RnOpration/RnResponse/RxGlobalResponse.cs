@@ -5,12 +5,12 @@ namespace RecInfoFirebaseAuth.RnOpration.RnResponse;
 public class RxGlobalResponse<TSuccess>
 {
     public TSuccess? SuccessResponse { get; set; }
-    
+
     public RxGlobalErrorResponse? ErrorResponse { get; set; }
 
     public bool IsSuccess => SuccessResponse != null;
 
-    public bool SomethingWentWrong => (SuccessResponse == null && ErrorResponse == null);
+    public bool SomethingWentWrong => SuccessResponse == null && ErrorResponse == null;
 
 
     public RxGlobalResponse<TSuccess> SetSuccess(TSuccess successResponse)
@@ -18,7 +18,7 @@ public class RxGlobalResponse<TSuccess>
         SuccessResponse = successResponse;
         return this;
     }
-    
+
     public RxGlobalResponse<TSuccess> SetError(RxGlobalErrorResponse errorResponse)
     {
         ErrorResponse = errorResponse;

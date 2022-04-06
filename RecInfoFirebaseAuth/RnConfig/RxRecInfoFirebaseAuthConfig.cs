@@ -1,21 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace RecInfoFirebaseAuth.RnConfig;
 
-namespace RecInfoFirebaseAuth.RnConfig
+public class RxRecInfoFirebaseAuthConfig
 {
-    public class RxRecInfoFirebaseAuthConfig
+    public RxRecInfoFirebaseAuthConfig(string firebaseApiKey)
     {
-
-        
-        
-        public string FirebaseApiKey { get; set; }
-
-        public RxRecInfoFirebaseAuthConfig(string firebaseApiKey)
-        {
-            FirebaseApiKey = firebaseApiKey;
-        }
+        FirebaseApiKey = firebaseApiKey;
     }
+
+
+    public string FirebaseApiKey { get; set; }
 }

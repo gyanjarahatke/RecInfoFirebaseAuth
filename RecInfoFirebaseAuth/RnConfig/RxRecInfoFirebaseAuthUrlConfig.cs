@@ -8,26 +8,31 @@ namespace RecInfoFirebaseAuth.RnConfig
 {
     public class RxRecInfoFirebaseAuthUrlConfig
     {
-        public const string AuthUrl = "https://identitytoolkit.googleapis.com/v1/";
+        private const string AuthUrl = "https://identitytoolkit.googleapis.com/v1/";
 
-        public const string AccountKey = "accounts";
+        private const string AccountKey = "accounts";
 
 
-        private static string GetUrl(string areaKey, string apiKey)
+        private string GetUrl(string areaKey, string apiKey)
         {
-            return string.Format("{0}{1}:{2}?key={3}",AuthUrl, AccountKey, areaKey, apiKey);
+            return $"{AuthUrl}{AccountKey}:{areaKey}?key={apiKey}";
         }
 
-        public static string GetSignUpUrl(string apiKey)
+        public string GetSignUpUrl(string apiKey)
         {
             return GetUrl("signUp", apiKey);
         }
 
-        public static string GetSignInWithPasswordUrl(string apiKey)
+        public string GetSignInWithPasswordUrl(string apiKey)
         {
             return GetUrl("signInWithPassword", apiKey);
         }
 
+        
+        public string GetEmailLogInUrl(string apiKey)
+        {
+            return GetUrl("logIn", apiKey);
+        }
         
     }
 }

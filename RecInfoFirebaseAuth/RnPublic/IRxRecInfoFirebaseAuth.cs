@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using RecInfoFirebaseAuth.RnHandlers.RnQuery.RnRequest;
+using RecInfoFirebaseAuth.RnHandlers.RnQuery.RnResponse;
 
 namespace RecInfoFirebaseAuth.RnPublic
 {
     public interface IRxRecInfoFirebaseAuth
     {
-
+        public Task<RxRecInfoFirebaseAuthEmailLogInResponse> GoForEmailLogInAsync(RxRecInfoFirebaseAuthEmailLogInPaylode model);
     }
 }

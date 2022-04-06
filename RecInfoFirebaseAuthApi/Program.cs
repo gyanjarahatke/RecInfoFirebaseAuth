@@ -1,3 +1,4 @@
+using FluentlyHttpClient;
 using RecInfoFirebaseAuth;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +21,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+InstallRecInfoFirebaseAuth.Configure(app);
 
 app.UseHttpsRedirection();
 

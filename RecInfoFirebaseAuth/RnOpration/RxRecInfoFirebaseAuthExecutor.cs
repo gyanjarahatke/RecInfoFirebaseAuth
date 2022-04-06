@@ -1,40 +1,43 @@
 ﻿using FluentlyHttpClient;
+using RecInfoFirebaseAuth.RnConfig;
 using RecInfoFirebaseAuth.RnOpration.RnResponse;
+using RecInfoFirebaseAuth.RnOpration.RnResponse.RnErrorResponse;
 
 namespace RecInfoFirebaseAuth.RnOpration
 {
-    public class RxRecInfoFirebaseAuthExecutor<TModel> where TModel : class
+    public class RxRecInfoFirebaseAuthExecutor<TSuccess,TModel> where TModel : class
     {
-        private readonly FluentHttpClientFactory _fluentHttpClientFactory;
-        private readonly FluentHttpClient _fluentHttpClient;
+        private readonly IFluentHttpClientFactory _fluentHttpClientFactory;
 
-        public RxRecInfoFirebaseAuthExecutor(FluentHttpClientFactory fluentHttpClientFactory, FluentHttpClient fluentHttpClient)
+        public RxRecInfoFirebaseAuthExecutor(IFluentHttpClientFactory fluentHttpClientFactory)
         {
             _fluentHttpClientFactory = fluentHttpClientFactory;
-            _fluentHttpClient = fluentHttpClient;
         }
 
 
-        public async Task<RxGlobalResponse> ExecutorPost(string path, TModel mode)
+        private IFluentHttpClient GetHttpClient()
+        {
+            return _fluentHttpClientFactory.Get(identifier: RxRecInfoFirebaseAuthUrlConfig.HttpPlatformName);
+        }
+        
+    
+        public async Task<RxGlobalResponse<TSuccess>> ExecutorPostBody(string path, TModel mode)
         {
             try
             {
-                var httpClient = _fluentHttpClientFactory.Get(identifier: "platform");
-                return await httpClient.Post<RxGlobalResponse>(path, mode);
+                var r = await GetHttpClient().CreateRequest(path).AsPost() // set as HTTP Post
+                    .WithBody(mode)
+                    .ReturnAsResponse();
+                if (r.IsSuccessStatusCode)
+                { 
+                    return new RxGlobalResponse<TSuccess>().SetSuccess(await r.Content.ReadAsAsync<TSuccess>());
+                }
+                return new RxGlobalResponse<TSuccess>().SetError(await r.Content.ReadAsAsync<RxGlobalErrorResponse>());
             }
             catch (Exception e)
             {
-                Exception c = e;
-                return null ;
+                return new RxGlobalResponse<TSuccess>();
             }
-        }
-
-        public async Task<RxGlobalResponse> ExecutorPostBody(string path, TModel mode)
-        {
-            return await _fluentHttpClient.CreateRequest(path).AsPost() // set as HTTP Post
-                                                                        .WithBody(mode) // serialize body content
-                                                                        .WithSuccessStatus() // ensure response success status
-                                                                        .Return<RxGlobalResponse>();
 
         }
     }

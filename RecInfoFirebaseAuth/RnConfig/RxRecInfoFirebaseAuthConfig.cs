@@ -8,6 +8,9 @@ namespace RecInfoFirebaseAuth.RnConfig
 {
     public class RxRecInfoFirebaseAuthConfig
     {
+
+        
+        
         public string FirebaseApiKey { get; set; }
 
         public RxRecInfoFirebaseAuthConfig(string firebaseApiKey)
